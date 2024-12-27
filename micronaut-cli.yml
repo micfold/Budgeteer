@@ -1,0 +1,6 @@
+applicationType: default
+defaultPackage: com.budgeteer
+testFramework: kotest
+sourceLanguage: kotlin
+buildTool: maven
+features: [app-name, http-client-test, kapt, kotest, kotlin, kotlin-application, logback, maven, maven-enforcer-plugin, micronaut-aot, micronaut-http-validation, mockk, netty-server, properties, readme, serialization-jackson, shade, static-resources]

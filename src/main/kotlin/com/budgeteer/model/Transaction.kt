@@ -5,20 +5,39 @@ import java.math.BigDecimal
 import java.time.LocalDateTime
 import io.micronaut.data.annotation.Id
 import io.micronaut.data.annotation.MappedEntity
+import io.micronaut.data.annotation.MappedProperty
 
-@MappedEntity
+@MappedEntity("transaction")
 data class Transaction(
     @field:Id
-    @field:GeneratedValue
+    @field:GeneratedValue(GeneratedValue.Type.IDENTITY)
     val id: Long? = null,
+
+    @MappedProperty("transaction_date")
     val transactionDate: LocalDateTime,
+
+    @MappedProperty("amount")
     val amount: BigDecimal,
+
+    @MappedProperty("description")
     val description: String,
+
+    @MappedProperty("merchant")
     val merchant: String,
+
+    @MappedProperty("category")
     val category: String,
+
+    @MappedProperty("original_currency")
     val originalCurrency: String,
+
+    @MappedProperty("exchange_rate")
     val exchangeRate: BigDecimal? = null,
+
+    @MappedProperty("note")
     val note: String? = null,
+
+    @MappedProperty("location")
     val location: String? = null
 )
 

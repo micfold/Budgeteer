@@ -19,8 +19,8 @@ class TransactionServiceSpec : BehaviorSpec({
     val repository = mockk<TransactionRepository>()
     val service = TransactionService(repository)
 
-    given("a transaction service") {
-        `when`("creating a new transaction") {
+    Given("a transaction service") {
+        When("creating a new transaction") {
             val request = TransactionRequest(
                 amount = BigDecimal("100.00"),
                 description = "Test transaction",
@@ -41,7 +41,7 @@ class TransactionServiceSpec : BehaviorSpec({
 
             coEvery { repository.save(any()) } returns savedTransaction
 
-            then("it should save and return the transaction") {
+            Then("it should save and return the transaction") {
                 val result = service.createTransaction(request)
                 result.id shouldBe 1L
                 result.amount shouldBe request.amount
@@ -51,7 +51,7 @@ class TransactionServiceSpec : BehaviorSpec({
             }
         }
 
-        `when`("retrieving a transaction by id") {
+        When("retrieving a transaction by id") {
             val transaction = Transaction(
                 id = 1L,
                 amount = BigDecimal("100.00"),
@@ -65,19 +65,19 @@ class TransactionServiceSpec : BehaviorSpec({
             coEvery { repository.findById(1L) } returns transaction
             coEvery { repository.findById(2L) } returns null
 
-            then("it should return the transaction when it exists") {
+            Then("it should return the transaction when it exists") {
                 val result = service.getTransaction(1L)
                 result shouldNotBe null
                 result?.id shouldBe 1L
             }
 
-            then("it should return null when transaction doesn't exist") {
+            Then("it should return null when transaction doesn't exist") {
                 val result = service.getTransaction(2L)
                 result shouldBe null
             }
         }
 
-        `when`("retrieving transactions by date range") {
+        When("retrieving transactions by date range") {
             val startDate = LocalDateTime.now().minusDays(1)
             val endDate = LocalDateTime.now()
             val transactions = listOf(
@@ -96,7 +96,7 @@ class TransactionServiceSpec : BehaviorSpec({
                 repository.findByTransactionDateBetween(startDate, endDate)
             } returns flowOf(*transactions.toTypedArray())
 
-            then("it should return transactions within the date range") {
+            Then("it should return transactions within the date range") {
                 val result = service.getTransactionsByDateRange(startDate, endDate)
                 result shouldNotBe null
             }
